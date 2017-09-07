@@ -47,3 +47,16 @@ final double PI = 3.1415927
 |protected|√|√|√|×|
 |default|√|√|×|×|
 |private|√|×|×|×|
+protected访问修饰符不能修饰类和接口，接口中的成员变量和成员方法不能声明为protected。
+## 11、访问控制和继承
+|父类|子类|
+|:-------------:|:-------------:|
+|public|必须public|
+|protected|protected或public，不能为private|
+|private|不能被继承|
+## 12、非访问修饰符
+* static->类变量和类方法
+* final->修饰类不能被继承，方法不能被重写，修饰变量不可修改（接近const）
+* Abstract->创建抽象类和抽象方法
+
+
