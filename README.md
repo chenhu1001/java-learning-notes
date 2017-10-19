@@ -67,3 +67,46 @@ protected访问修饰符不能修饰类和接口，接口中的成员变量和�
 * @Controller层是spring-mvc的注解，具有将请求进行转发，重定向的功能。
 * @Service层是业务逻辑层注解，这个注解只是标注该类处于业务逻辑层。
 * 用这些注解对应用进行分层之后，就能将请求处理，义务逻辑处理，数据库操作处理分离出来，为代码解耦，也方便了以后项目的维护和开发。
+
+## java只使用try和finally不使用catch的原因和场景
+JDK并发工具包中，很多异常处理都使用了如下的结构，如AbstractExecutorService，即只有try和finally没有catch。
+
+```
+class X   
+{  
+    private final ReentrantLock lock = new ReentrantLock();  
+    // ...  
+   
+    public void m()  
+    {  
+    lock.lock();  // block until condition holds  
+    try   
+    {  
+        // ... method body  
+    } finally  
+    {  
+        lock.unlock()  
+    }  
+     }  
+} 
+```
+
+为什么要使用这种结构？有什么好处呢？先看下面的代码
+
+```
+public void testTryAndFinally(String name)  
+{  
+       try  
+       {  
+           name.length();// NullPointerException  
+       }  
+       finally  
+       {  
+           System.out.println("aa");  
+       }  
+} 
+```
+
+* 传递null调用该方法的执行结果是：在控制台打印aa，并抛出NullPointerException。即程序的执行流程是先执行try块，出现异常后执行finally块，最后向调用者抛出try中的异常。这种执行结果是很正常的，因为没有catch异常处理器，所有该方法只能将产生的异常向外抛；因为有finally，所以会在方法返回抛出异常之前，先执行finally代码块中的清理工作。  
+* 这种做法的好处是什么呢？对于testTryAndFinally来说，它做了自己必须要做的事(finally)，并向外抛出自己无法处理的异常；对于调用者来说，能够感知出现的异常，并可以按照需要进行处理。也就是说这种结构实现了职责的分离，实现了异常处理(throw)与异常清理(finally)的解耦，让不同的方法专注于自己应该做的事。  
+* 那什么时候使用try-finally，什么时候使用try-catch-finally呢？很显然这取决于方法本身是否能够处理try中出现的异常。如果自己可以处理，那么直接catch住，不用抛给方法的调用者；如果自己不知道怎么处理，就应该将异常向外抛，能够让调用者知道发生了异常。即在方法的签名中声明throws可能出现而自己又无法处理的异常，但是在方法内部做自己应该的事情。
