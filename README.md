@@ -118,3 +118,23 @@ java 的异常处理中，
 * 若finally代码块里没有return或没有能够终止程序的代码，程序将在执行完finally代码块代码之后再返回try代码块执行return语句来结束整个方法;
 * 若finally代码块里有return或含有能够终止程序的代码，方法将在执行完finally之后被结束，不再跳回try代码块执行return;
 * 在抛出异常的情况下，原理也是和上面的一样的，你把上面说到的try换成catch去理解就OK了 *_*
+
+## spring4.x定时任务执行
+
+```
+package com.yzhotel.task;
+
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+@EnableScheduling
+public class WxTask {
+
+    @Scheduled(cron = "0/5 * * * * ?")
+    public void sendMessage(){
+    	System.out.println("定时任务执行了！");
+    }
+}
+```
