@@ -144,3 +144,7 @@ public class WxTask {
 sudo launchctl load /Library/LaunchDaemons/org.jenkins-ci.plist  
 停止  
 sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist
+
+## web.xml 配置中classpath: 与classpath*:的区别
+classpath：只会到你的class路径中查找找文件; 
+classpath\*：不仅包含class路径，还包括jar文件中(class路径)进行查找. 
