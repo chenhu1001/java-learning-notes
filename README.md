@@ -2,16 +2,20 @@
 ## 1、java命令
 * javac：用于将java源文件编译为class字节码文件
 * java：可以运行class字节码文件，如：java HelloWorld
+
 ## 2、java分为三个体系
 * JavaSE（J2SE）java平台标准版
 * JavaEE（J2EE）java平台企业版
 * JavaME（J2ME）java平台微型版
+
 ## 3、java语言特性
 java语言支持动态绑定，而C++只对虚函数使用动态绑定。
+
 ## 4、类中包含的变量
 * 局部变量
 * 成员变量
 * 类变量（必须声明为static）
+
 ## 5、源文件声明规则
 * 一个源文件中只能有一个public类；
 * 一个源文件可以有多个非public类；
@@ -19,6 +23,7 @@ java语言支持动态绑定，而C++只对虚函数使用动态绑定。
 * 如果一个类定义在某个包中，那么package语句应该在源文件的首行；
 * 如果源文件中包含import语句，那么应该放在package语句和类定义之间。如果没有package语句，那么import语句应该在源文件中最前面；
 * import语句和package语句对源文件中定义的所有类都有效，在同一源文件中，不能给不同的类不同的包声明。
+
 ## 6、java数据类型
 * byte（有符号8位整数）
 * short
@@ -27,6 +32,7 @@ java语言支持动态绑定，而C++只对虚函数使用动态绑定。
 * float
 * double
 * char
+
 ## 7、java常量
 
 ```
@@ -38,8 +44,10 @@ final double PI = 3.1415927
 |:-------------:|:-------------:|
 |访问修饰符不能用于局部变量|可用于实例变量|
 |局部变量无默认值|有默认值|
+
 ## 9、类变量（静态变量）
 类变量被声明为public static final类型时，类变量名称必须使用大写字母。
+
 ## 10、访问控制
 |修饰符|当前类|同一包内|子孙类|其他包|
 |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
@@ -48,19 +56,116 @@ final double PI = 3.1415927
 |default|√|√|×|×|
 |private|√|×|×|×|
 protected访问修饰符不能修饰类和接口，接口中的成员变量和成员方法不能声明为protected。
+
 ## 11、访问控制和继承
 |父类|子类|
 |:-------------:|:-------------:|
 |public|必须public|
 |protected|protected或public，不能为private|
 |private|不能被继承|
+
 ## 12、非访问修饰符
 * static->类变量和类方法
 * final->修饰类不能被继承，方法不能被重写，修饰变量不可修改（接近const）
 * Abstract->创建抽象类和抽象方法
 
+## 13、static修饰符
+* 静态变量
+* 静态方法
 
-## @Component, @Service, @Controller, @Repository注解的区别
+## 14、Final修饰符
+Final变量能被显式地初始化，并且只能被初始化一次。被声明为final的对象的引用不能指向不同的对象，但是final对象里的数据可以被改变
+
+## 15、Abstract修饰符
+* 抽象类不能用来实例化对象，声明抽象类的唯一目的是为了将来对该类进行扩充  
+* 一个类不能同时被Abstract和final修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将出现编译错误
+* 抽象类可以包含抽象方法和非抽象方法
+* 抽象方法是种没有任何实现的方法，该方法的具体实现由子类提供，抽象方法不能声明为final和static
+* 任何继承抽象类的子类必须要实现父类的所有抽象方法，除非子类也是抽象类
+
+## 16、instanceof运算符
+用于操作对象实例，检查该对象是否是一个特定类型（类类型或接口类型）
+
+```
+String name = "James";
+boolean result = name instanceof String; // result返回true
+```
+如果被比较的对象兼容于右侧类型，改运算符仍然返回true
+
+## 17、for语句
+
+```
+for (声明语句:表达式) {
+	// 代码语句
+}
+```
+
+## 18、Number方法
+
+## 19、Java character类
+
+## 20、String类
+String（不可改变），如需改变应选择使用StringBuffer和StringBuilder类  
+* StringBuffer（线程安全）  
+* StringBuilder（速度快）
+
+## 21、Java休眠（sleep）
+
+```
+Thread.sleep(1000*3); // 休眠3秒
+```
+
+## 22、构造方法
+构造方法和它所在类的名字相同，但构造方法没有返回值
+
+## 23、可变参数
+一个方法中只能指定一个可变参数，它必须是方法的最后一个参数，任何普通的参数必须在它之前声明
+
+## 24、finalize()方法
+finalize()方法里，你必须指定在对象销毁时要执行的操作
+
+```
+protect void finalize() throws java.lang.Throwable {
+	super.finalize()
+	// 对象销毁时要执行的操作
+}
+```
+
+## 25、抽象类和接口的区别
+* 想让一些方法有默认实现，用抽象类
+* 想实现多重继承，用接口
+
+## 26、重写规则
+访问权限必须比父类权限高
+
+## 27、重载与重写的区别
+|区别点|重载方法|重写方法|
+|:-------------:|:-------------:|:-------------:|
+|参数列表|必须修改|一定不能修改|
+|返回类型|可以修改|一定不能修改|
+|异常|可以修改|可以减少式删除|
+|访问|可以修改|一定不能做严格的限制（可以降低限制）|
+
+## 28、抽象类、抽象方法
+
+## 29、接口（interface）
+接口是抽象方法的集合。一个类实现一个或者多个接口，因此继承了接口的抽象方法。接口的特点：  
+* 不能实例化  
+* 没有构造函数  
+* 所有方法都是抽象的，同时也是隐式的pulic、static  
+* 只能含有声明为final、static的field
+
+## 30、接口和抽象类的区别
+* 抽象类可以有构造方法，接口不行
+* 抽象类可以有普通成员变量，接口没有
+* 抽象类可以有非抽象方法，接口必须全部抽象
+* 抽象类的访问类型都可以，接口只能是pulic abstract
+* 一个类可以实现多个接口，但只能继承一个抽象类
+
+## 31、super
+注意super的使用，super并没有代表超类的一个引用能力，只是代表调用父类的方法而已
+
+## 32、@Component, @Service, @Controller, @Repository注解的区别
 * @Component, @Service, @Controller, @Repository是spring注解，注解后可以被spring框架所扫描并注入到spring容器来进行管理
 * @Component是通用注解，其他三个注解是这个注解的拓展，并且具有了特定的功能
 * @Repository注解在持久层中，具有将数据库操作抛出的原生异常翻译转化为spring的持久层异常的功能。
@@ -68,7 +173,7 @@ protected访问修饰符不能修饰类和接口，接口中的成员变量和�
 * @Service层是业务逻辑层注解，这个注解只是标注该类处于业务逻辑层。
 * 用这些注解对应用进行分层之后，就能将请求处理，义务逻辑处理，数据库操作处理分离出来，为代码解耦，也方便了以后项目的维护和开发。
 
-## java只使用try和finally不使用catch的原因和场景
+## 33、java只使用try和finally不使用catch的原因和场景
 JDK并发工具包中，很多异常处理都使用了如下的结构，如AbstractExecutorService，即只有try和finally没有catch。
 
 ```
@@ -119,7 +224,7 @@ java 的异常处理中，
 * 若finally代码块里有return或含有能够终止程序的代码，方法将在执行完finally之后被结束，不再跳回try代码块执行return;
 * 在抛出异常的情况下，原理也是和上面的一样的，你把上面说到的try换成catch去理解就OK了 *_*
 
-## spring4.x定时任务执行
+## 34、spring4.x定时任务执行
 
 ```
 package com.yzhotel.task;
@@ -139,12 +244,12 @@ public class WxTask {
 }
 ```
 
-## Mac环境中Jenkins的停止和启动命令
+## 35、Mac环境中Jenkins的停止和启动命令
 启动  
 sudo launchctl load /Library/LaunchDaemons/org.jenkins-ci.plist  
 停止  
 sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist
 
-## web.xml 配置中classpath: 与classpath*:的区别
+## 36、web.xml 配置中classpath: 与classpath*:的区别
 classpath：只会到你的class路径中查找找文件;   
 classpath\*：不仅包含class路径，还包括jar文件中(class路径)进行查找. 
