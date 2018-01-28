@@ -264,5 +264,5 @@ public ResponseResult test() {
         
         ResponseResult responseResult = (ResponseResult)JSONObject.toJavaObject(jsStr,ResponseResult.class);
         return responseResult;
-	}
+}
 ```
