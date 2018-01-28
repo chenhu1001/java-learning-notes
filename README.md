@@ -255,6 +255,15 @@ classpath：只会到你的class路径中查找找文件;
 classpath\*：不仅包含class路径，还包括jar文件中(class路径)进行查找. 
 
 ## 37、dubbo类型转换
+服务提供端：
+```
+public String getOrganizationList() {
+	List<MsOrganization> datas = mapper.getOrganizationList(); 
+	String result = (ResponseResult.succ(datas)).toString();
+        return result;
+}
+```
+服务消费端：
 ```
 public ResponseResult test() {
 	DubboOrganizationService dubboOrganizationService = SpringApplicationContext.context.getBean(DubboOrganizationService.class);
