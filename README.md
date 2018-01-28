@@ -253,3 +253,16 @@ sudo launchctl unload /Library/LaunchDaemons/org.jenkins-ci.plist
 ## 36、web.xml 配置中classpath: 与classpath*:的区别
 classpath：只会到你的class路径中查找找文件;   
 classpath\*：不仅包含class路径，还包括jar文件中(class路径)进行查找. 
+
+## 37、dubbo类型转换
+```
+public ResponseResult test() {
+	DubboOrganizationService dubboOrganizationService = SpringApplicationContext.context.getBean(DubboOrganizationService.class);
+        String str = dubboOrganizationService.getOrganizationList();
+        JSONObject jsStr = JSONObject.parseObject(str);
+        String statusCode = jsStr.getString("statusCode");
+        
+        ResponseResult responseResult = (ResponseResult)JSONObject.toJavaObject(jsStr,ResponseResult.class);
+        return responseResult;
+	}
+```
