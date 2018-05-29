@@ -277,5 +277,5 @@ public ResponseResult test() {
 ```
 
 ## 38、Mybatis使用
-### 拼接字段
+### （1）拼接字段
 concat(tp.project_name,'-', taf.form_name) project_form_name
