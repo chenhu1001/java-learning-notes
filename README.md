@@ -279,3 +279,53 @@ public ResponseResult test() {
 ## 38、Mybatis使用
 ### （1）拼接字段
 concat(tp.project_name,'-', taf.form_name) project_form_name
+### （2）常用Mapper
+```
+<resultMap type="com.tfkj.ticket.entity.dto.TkArtFormDTO" id="projectResultMap">
+	<id property="id" column="id"/>
+	<result property="eventToken" column="event_token"/>
+	<result property="formDescription" column="form_description"/>
+	<result property="formName" column="form_name"/>
+	<result property="isChose" column="is_chose"/>
+	<result property="restrictionType" column="restriction_type"/>
+	<result property="showDate" column="show_date"/>
+	<result property="projectId" column="project_id"/>
+	<result property="venueVersionId" column="venue_version_id"/>
+	<result property="createTime" column="create_time"/>
+	<result property="createUser" column="create_user"/>
+	<result property="modifyTime" column="modify_time"/>
+	<result property="modifyUser" column="modify_user"/>
+	<result property="projectName" column="project_name"/>
+	<result property="projectFormName" column="project_form_name"/>
+	<result property="venueName" column="venue_name"/>
+	<result property="isTop" column="is_top"/>
+	<result property="topTime" column="top_time"/>
+	<result property="formHostStatus" column="form_host_status"/>
+</resultMap>
+```
+```
+<select id="getNonPageArtFormList" resultMap="projectResultMap">
+		select taf.*, tp.project_name, v.venue_name, concat(tp.project_name,'-', taf.form_name) project_form_name
+		from tk_art_form taf
+		left join tk_project tp on taf.project_id = tp.id
+		left join (select tvv.*, ttv.venue_name from tk_venue_version tvv
+			left join tk_the_venue ttv on tvv.venue_id = ttv.id) v
+		on taf.venue_version_id = v.id
+        WHERE taf.form_delete_status='1113002'
+        <if test="formName != null and formName != ''">
+            AND LOCATE(#{formName},taf.form_name)&gt;0
+        </if>
+        <if test="projectId != null and projectId != ''">
+            AND taf.project_id=#{projectId}
+        </if>
+        <if test="showBeginTime != null ">
+			AND #{showBeginTime}&lt;taf.show_date
+		</if>
+		<if test="showEndTime != null ">
+			AND #{showEndTime}&gt;taf.show_date
+		</if>
+		 <if test="formCancelStatus != null and formCancelStatus != ''">
+            AND taf.form_cancel_status =#{formCancelStatus}
+        </if>
+	</select>
+```
