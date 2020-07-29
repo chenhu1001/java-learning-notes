@@ -330,5 +330,5 @@ concat(tp.project_name,'-', taf.form_name) project_form_name
 	</select>
 ```
 39、@Autowired(required=false)和@Autowired(required=true)
-@Autowired(required=true)：当使用@Autowired注解的时候，其实默认就是@Autowired(required=true)，表示注入的时候，该bean必须存在，否则就会注入失败。
+@Autowired(required=true)：当使用@Autowired注解的时候，其实默认就是@Autowired(required=true)，表示注入的时候，该bean必须存在，否则就会注入失败。  
 @Autowired(required=false)：表示忽略当前要注入的bean，如果有直接注入，没有跳过，不会报错。
