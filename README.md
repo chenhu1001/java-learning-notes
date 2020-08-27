@@ -332,3 +332,7 @@ concat(tp.project_name,'-', taf.form_name) project_form_name
 ## 39、@Autowired(required=false)和@Autowired(required=true)
 @Autowired(required=true)：当使用@Autowired注解的时候，其实默认就是@Autowired(required=true)，表示注入的时候，该bean必须存在，否则就会注入失败。  
 @Autowired(required=false)：表示忽略当前要注入的bean，如果有直接注入，没有跳过，不会报错。
+## 40、Maven本地包安装
+```
+mvn install:install-file  -Dfile=/Users/chenhu/Desktop/taobao.sdk.java-0.0.1.RELEASE.jar  -DgroupId=com.tfkj  -DartifactId=taobao.sdk.java -Dversion=0.0.1.RELEASE -Dpackaging=jar
+```
