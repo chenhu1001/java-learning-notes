@@ -336,3 +336,32 @@ concat(tp.project_name,'-', taf.form_name) project_form_name
 ```
 mvn install:install-file  -Dfile=/Users/chenhu/Desktop/taobao.sdk.java-0.0.1.RELEASE.jar  -DgroupId=com.tfkj  -DartifactId=taobao.sdk.java -Dversion=0.0.1.RELEASE -Dpackaging=jar
 ```
+## 41、修改jar包中的配置文件
+### 1、通过vim命令直接编辑jar
+vim xxx.jar 该命令首先会列出全部文件，可以通过输入/abc来搜索，定位到对应的abc文件后回车进入配置文件内进行编辑，:wq保存。
+### 2、通过jar命令替换jar包中的文件(也可新增)
+* 列出jar包中的文件清单
+jar tf genesys_data_etl-0.0.1-SNAPSHOT.jar
+
+* 提取出内部jar包的指定文件
+jar xf genesys_data_etl-0.0.1-SNAPSHOT.jar BOOT-INF/classes/realtime/t_ivr_data_bj.json
+
+* 然后可以修改文件
+vim BOOT-INF/classes/realtime/t_ivr_data_bj.json
+
+* 更新配置文件到内部jar包.(存在覆盖，不存在就新增)
+jar uf genesys_data_etl-0.0.1-SNAPSHOT.jar BOOT-INF/classes/realtime/t_ivr_data_bj.json      
+
+* 更新内部jar包到jar文件
+jar uf genesys_data_etl-0.0.1-SNAPSHOT.jar 内部jar包.jar     
+
+* 可以查看验证是否已经更改
+vim genesys_data_etl-0.0.1-SNAPSHOT.jar
+
+### 3、解压jar包，修改后重新打包jar
+* 解压
+unzip genesys_data_etl-0.0.1-SNAPSHOT.jar 
+* 移除jar包,最好备份
+rm -rf genesys_data_etl-0.0.1-SNAPSHOT.jar
+* 重新打包
+jar -cfM0 new-genesys_data_etl-0.0.1-SNAPSHOT.jar *
